@@ -1,0 +1,20 @@
+services:
+  translator:
+    build: .
+    container_name: scraper-translator
+    restart: unless-stopped
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - OLLAMA_URL=${OLLAMA_URL:-http://83.228.244.116:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-mistral:7b-instruct-q4_K_M}
+      - BATCH_SIZE=${BATCH_SIZE:-10}
+      - CYCLE_SLEEP=${CYCLE_SLEEP:-60}
+      - REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-120}
+      - MONGO_MUBAWAB_DB=${MONGO_MUBAWAB_DB:-mubawab}
+      - MONGO_MUBAWAB_COL_CLEAN=${MONGO_MUBAWAB_COL_CLEAN:-locations_clean}
+      - MONGO_PROPERTYFINDER_DB=${MONGO_PROPERTYFINDER_DB:-propertyfinder}
+      - MONGO_PROPERTYFINDER_COL_CLEAN=${MONGO_PROPERTYFINDER_COL_CLEAN:-locations_clean}
+      - MONGO_MKTLIST_DB=${MONGO_MKTLIST_DB:-mktlist}
+      - MONGO_MKTLIST_COL_CLEAN=${MONGO_MKTLIST_COL_CLEAN:-locations_clean}
+    volumes:
+      - ./logs:/app/logs

@@ -1,0 +1,15 @@
+[Unit]
+Description=NLLB-200 Translation Server (FastAPI)
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/translator
+ExecStart=/home/ubuntu/venv/bin/uvicorn translate_server:app --host 0.0.0.0 --port 8080 --workers 1
+Restart=always
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

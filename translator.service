@@ -1,0 +1,16 @@
+[Unit]
+Description=Universal Translator (announcements → announcement_translations)
+After=network.target nllb-server.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/translator
+EnvironmentFile=/home/ubuntu/translator/.env
+ExecStart=/home/ubuntu/venv/bin/python translator.py
+Restart=always
+RestartSec=15
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
